@@ -3,14 +3,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Greg Clement Home Page', data: {
+    css: [ ]
+  } });
 });
-
-router.get('/test', function (req, res, next) {
-  res.render('test', { title: 'test page' });
-});
-
-
-
 
 module.exports = router;

@@ -235,6 +235,10 @@ div[flex] {
   background-image: url(../images/bg2.jpg);
 }
 
+.alcatraz {
+  background-image: url(../images/alcatraz.jpg);
+}
+
 .white, .white h2, .white .section-title h2 {
   color: #fff
 }
@@ -256,6 +260,16 @@ div[flex] {
 .upper {
   text-transform: uppercase;
 }
+
+footer {
+  background-color: rgb(51, 51, 51);
+  color: #fff;
+}
+
+img.social {
+  height: 44px;
+}
+
 
 .vertical-center-container {
   display: grid;
