@@ -45,4 +45,12 @@ router.get('/rock-paper-scissors', function (req, res, next) {
     res.render('rock-paper-scissors', { layout: false });
 });
 
+router.get('/gamemenu', function(req, res,next){
+    res.redirect('/games/menu');
+});
+
+router.get('/GameMenu', function(req, res,next){
+    res.redirect('/games/menu');
+});
+
 module.exports = router;

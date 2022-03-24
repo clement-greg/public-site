@@ -1,5 +1,7 @@
 body {
   font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 a {
@@ -74,6 +76,7 @@ header.scrolled {
 .gamesList li a:active, .gamesList li a:hover {
   background-color: rgba(0, 0, 0, .1);
   transform: perspective(200px) rotateY(2deg);
+  color: #fff;
 }
 
 .container {
@@ -268,6 +271,11 @@ footer {
 
 img.social {
   height: 44px;
+}
+
+#bg-video  {
+    min-width: 100%;
+    min-height: 100%;
 }
 
 
