@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Connect 4</title>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-44334208-1', 'gregbclement.com');
+            ga('send', 'pageview');
+
+</script>
+    <style>
+        html {
+            height: 100%;
+            margin-bottom: 0px;
+        }
+
+        body {
+            height: 100%;
+            margin-bottom: 0px;
+
+            background: url('/images/product_generic_bg.jpg') no-repeat top center;
+        }
+
+        #gameboard {
+            border-collapse: collapse;
+        }
+
+        table#gameboard tr:not(:first-child) {
+            border-top: 1px solid grey;
+        }
+
+        table#gameboard td:not(:first-child) {
+            border-left: 1px solid grey;
+        }
+
+        Table#gameboard td {
+            height: 50px;
+            width: 50px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #gameContainer {
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            margin: 20px;
+            margin-top: 0px;
+            -moz-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+            -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+            background: #eee /*{c-bup-background-color}*/;
+            color: #222 /*{c-bup-color}*/;
+            text-shadow: 0 /*{c-bup-shadow-x}*/ 1px /*{c-bup-shadow-y}*/ 0 /*{c-bup-shadow-radius}*/ #fff /*{c-bup-shadow-color}*/;
+            background-image: -webkit-gradient(linear, left top, left bottom, from( #fff /*{c-bup-background-start}*/ ), to( #f1f1f1 /*{c-bup-background-end}*/ )); /* Saf4+, Chrome */
+            background-image: -webkit-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* Chrome 10+, Saf5.1+ */
+            background-image: -moz-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* FF3.6 */
+            background-image: -ms-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* IE10 */
+            background-image: -o-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* Opera 11.10+ */
+            background-image: linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ );
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 500px;
+        }
+
+        #messageContainer {
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            margin: 20px;
+            -moz-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+            -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+            background: #eee /*{c-bup-background-color}*/;
+            color: #222 /*{c-bup-color}*/;
+            text-shadow: 0 /*{c-bup-shadow-x}*/ 1px /*{c-bup-shadow-y}*/ 0 /*{c-bup-shadow-radius}*/ #fff /*{c-bup-shadow-color}*/;
+            background-image: -webkit-gradient(linear, left top, left bottom, from( #fff /*{c-bup-background-start}*/ ), to( #f1f1f1 /*{c-bup-background-end}*/ )); /* Saf4+, Chrome */
+            background-image: -webkit-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* Chrome 10+, Saf5.1+ */
+            background-image: -moz-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* FF3.6 */
+            background-image: -ms-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* IE10 */
+            background-image: -o-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* Opera 11.10+ */
+            background-image: linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ );
+            margin-left: auto;
+            margin-right: auto;
+            position: fixed;
+            display: block;
+            width: 365px;
+            top: 30px;
+        }
+
+        #currentPlayer {
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            margin: 20px;
+            -moz-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+            -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+            background: #eee /*{c-bup-background-color}*/;
+            color: #222 /*{c-bup-color}*/;
+            text-shadow: 0 /*{c-bup-shadow-x}*/ 1px /*{c-bup-shadow-y}*/ 0 /*{c-bup-shadow-radius}*/ #fff /*{c-bup-shadow-color}*/;
+            background-image: -webkit-gradient(linear, left top, left bottom, from( #fff /*{c-bup-background-start}*/ ), to( #f1f1f1 /*{c-bup-background-end}*/ )); /* Saf4+, Chrome */
+            background-image: -webkit-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* Chrome 10+, Saf5.1+ */
+            background-image: -moz-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* FF3.6 */
+            background-image: -ms-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* IE10 */
+            background-image: -o-linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ); /* Opera 11.10+ */
+            background-image: linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ );
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 460px;
+            padding: 20px;
+            font-size: 16pt;
+            font-weight: bold;
+            font-family: Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <img src="/images/connect-4/Connect4logo.png" style="height: 64px" />
+    </center>
+    <div id="gameContainer">
+        <table id="gameboard">
+            <tbody data-bind="foreach: rows">
+                <tr>
+                    <!-- ko foreach: columns -->
+                    <td data-bind="click: playColumn">
+                        <img data-bind="attr: { src: imageUrl }, visible: imageVisible" style="margin-left: 10px; height: 40px" /></td>
+                    <!-- /ko -->
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    
+    <div id="currentPlayer">
+        <div style="display: inline-block">
+            <center>
+        Current Player
+        <br />
+        <img data-bind="attr: { src: playersTurnUrl }" style="height: 64px" />
+            </center>
+
+
+        </div>
+
+        <div style="display: inline-block; float: right">
+            <table>
+                <tr>
+                    <td><img src="/images/connect-4/player1.png" style="vertical-align: middle; height: 36px; margin-right: 10px" />Player 1 Wins:&nbsp;</td>
+                    <td data-bind="text: player1WinCount"></td>
+                </tr>
+                <tr>
+                    <td><img src="/images/connect-4/player2.png" style="vertical-align: middle; height: 36px;  margin-right: 10px" />Player 2 Wins:&nbsp;</td>
+                    <td data-bind="text: player2WinCount"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="/javascripts/jquery-1.9.1.min.js"></script>
+    <script src="/javascripts/knockout-3.3.0.js"></script>D
+    <script type="text/javascript" src="/javascripts/knockout.mapping-latest.js"></script>
+    <script type="text/javascript" src="/javascripts/connect-4.js?v=2"></script>
+</body>
+</html>

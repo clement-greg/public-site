@@ -154,7 +154,7 @@ $(function () {
             gameArgs.startGame();
         }
         else if (e.key == 'm' || e.key == 'M')
-            document.location = '/Games/GameMenu?timeout=' + getParameterByName('timeout');
+            document.location = '/games/menu?timeout=' + getParameterByName('timeout');
     });
     document.getElementById('aboutButton').onclick = function () {
         document.getElementById('about').className = 'tab tab-show';

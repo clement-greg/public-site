@@ -29,4 +29,20 @@ router.get('/pac-man', function (req, res, next) {
     res.render('pac-man', { layout: false });
 });
 
+router.get('/bubbles', function (req, res, next) {
+    res.render('bubbles', { layout: false });
+});
+
+router.get('/connect-4', function (req, res, next) {
+    res.render('connect-4', { layout: false });
+});
+
+router.get('/pong', function (req, res, next) {
+    res.render('pong', { layout: false });
+});
+
+router.get('/rock-paper-scissors', function (req, res, next) {
+    res.render('rock-paper-scissors', { layout: false });
+});
+
 module.exports = router;

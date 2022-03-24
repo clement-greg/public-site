@@ -254,7 +254,7 @@ function getParameterByName(name) {
 var startGameDate = new Date();
 if (getParameterByName('timeout')) {
     setTimeout(function () {
-        document.location.href = '/Games/GameMenu?timeout=' + getParameterByName('timeout')
+        document.location.href = '/games/menu?timeout=' + getParameterByName('timeout')
 
     }, getParameterByName('timeout'));
     setInterval(function () {

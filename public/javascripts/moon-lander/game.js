@@ -44,7 +44,7 @@
                 doUpThrust();
                 break;
             case 77:
-                document.location.href = '/Games/GameMenu?timeout=' + getParameterByName('timeout');
+                document.location.href = '/games/menu?timeout=' + getParameterByName('timeout');
         }
     });
 
@@ -144,7 +144,7 @@
         }
 
         if (gp.buttons[2].pressed) {
-            document.location.href = '/Games/GameMenu?timeout=' + getParameterByName('timeout');
+            document.location.href = '/games/menu?timeout=' + getParameterByName('timeout');
         }
     }
 
@@ -237,7 +237,7 @@ function getParameterByName(name) {
 var startGameDate = new Date();
 if (getParameterByName('timeout')) {
     setTimeout(function () {
-        document.location.href = '/Games/GameMenu?timeout=' + getParameterByName('timeout')
+        document.location.href = '/games/menu?timeout=' + getParameterByName('timeout')
 
     }, getParameterByName('timeout'));
     setInterval(function () {

@@ -160,7 +160,7 @@
         }
 
         if (gp.buttons[2].pressed) {
-            document.location.href = '/Games/GameMenu?timeout=' + getParameterByName('timeout');
+            document.location.href = '/games/menu?timeout=' + getParameterByName('timeout');
         }
     }
 };

@@ -144,7 +144,7 @@ var vm = function () {
                 self.cycleDifficulty();
                 break;
             case 77:
-                document.location.href = '/Games/GameMenu?timeout=' + getParameterByName('timeout');
+                document.location.href = '/games/menu?timeout=' + getParameterByName('timeout');
         }
     });
     //setup an interval for Chrome
@@ -230,7 +230,7 @@ var vm = function () {
             prevState.secondaryDown = false;
         }
         if (gp.buttons[2] && gp.buttons[2].pressed) {
-            document.location.href = '/Games/GameMenu?timeout=' + getParameterByName('timeout');
+            document.location.href = '/games/menu?timeout=' + getParameterByName('timeout');
         }
     }
 
