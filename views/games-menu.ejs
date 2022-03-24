@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="App">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -11,6 +12,7 @@
         html {
             height: 100%;
         }
+
         @font-face {
             font-family: gameFont;
             src: url(/fonts/gomarice_game_continue_03.ttf);
@@ -19,14 +21,19 @@
         h1 {
             font-family: gameFont;
         }
+
         body {
-            background: #4b79a1; /* fallback for old browsers */
-            background: -webkit-linear-gradient(to left, #4b79a1, #283e51); /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to left, #4b79a1, #283e51); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: #4b79a1;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #4b79a1, #283e51);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #4b79a1, #283e51);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             padding: 30px;
             overflow: hidden;
             height: 100%;
         }
+
         h1,
         h2,
         h3,
@@ -49,13 +56,13 @@
             white-space: nowrap;
         }
 
-            #gameList li {
-                list-style: none;
-                display: inline-block;
-                padding: 30px;
-                text-align: center;
-                transition: 1s ease-in-out;
-            }
+        #gameList li {
+            list-style: none;
+            display: inline-block;
+            padding: 30px;
+            text-align: center;
+            transition: 1s ease-in-out;
+        }
 
         .right {
             transform: scale(.8) perspective(200px) rotateY(-10deg) !important;
@@ -81,20 +88,22 @@
             opacity: 0;
         }
 
-             #gameList li img {
-                 border-radius: 3px;
-             }
+        #gameList li img {
+            border-radius: 3px;
+        }
 
         .selected {
-            background-color: orange;
+            background-color: rgb(3, 121, 3);
             transform: scale(1) !important;
             border-radius: 6px;
-            box-shadow: 0px 0px 41px 0px rgba(240,200,40,1);
+            box-shadow: 0px 0px 74px 0px rgb(255 255 40);
+            background: linear-gradient(360deg, rgba(3, 121, 3, 1) 0%, rgba(80, 212, 137, 1) 100%);
         }
 
         .oneSelected {
             transform: translateX(700px);
         }
+
         .twoSelected {
             transform: translateX(340px);
         }
@@ -111,9 +120,10 @@
         .fiveSelected {
             transform: translateX(-740px);
         }
+
         #description {
             padding: 20px;
-            background-color: rgba(0,0,0,.1);
+            background-color: rgba(0, 0, 0, .1);
             border-radius: 20px;
             display: table;
             margin-top: 40px;
@@ -123,8 +133,10 @@
             font-family: "Open Sans";
             min-height: 50px;
             text-align: center;
-                
+            color: rgba(255, 255, 255, .8);
+            font-weight: 100;
         }
+
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -141,76 +153,102 @@
         .fade-in {
             animation: fadeIn 1s ease-in-out;
         }
+
+        #bg-video,
+        #content-container {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+        }
+
+        #content-container {
+            z-index: 10;
+        }
     </style>
 </head>
+
 <body ng-controller="BaseCtrl" id="body" ng-keyup="handleKeys($event)">
 
+    <video autoplay muted loop id="bg-video">
+        <source src="/media/game-menu-bg.mp4">
+    </video>
+
+
+    <div id="content-container">
+        <div style="text-align: center; margin-top: 40px">
+            <img src="/images/x-box-logo.png" style="height: 150px" /><br>
+            <h1>Let's Play</h1>
+        </div>
+        <ul id="gameList"
+            ng-class="{oneSelected:  selectedIndex == 0, twoSelected: selectedIndex == 1, threeSelected: selectedIndex == 2, fourSelected: selectedIndex == 3, fiveSelected: selectedIndex == 4}">
+            <li
+                ng-class="{selected: selectedIndex == 0, right: selectedIndex == 1, veryright: selectedIndex == 2, hidden: selectedIndex >= 3}">
+                <img src="/images/skeet_300x300.jpg" />
+                <br />
+                <h2>Skeet Shooting</h2>
+            </li>
+            <li
+                ng-class="{selected: selectedIndex == 1, right: selectedIndex == 2, left: selectedIndex == 0, veryright: selectedIndex == 3, hidden: selectedIndex ==4}">
+                <img src="/images/asteroids_300x300.jpg" />
+                <br />
+                <h2>Asteroids</h2>
+            </li>
+            <li
+                ng-class="{selected: selectedIndex == 2, left: selectedIndex == 1, veryleft: selectedIndex == 0, right: selectedIndex == 3, veryright: selectedIndex == 4}">
+                <img src="/images/moon_landing_300x300.jpg" />
+                <br />
+                <h2>Moon Landing</h2>
+            </li>
+
+            <li
+                ng-class="{right: selectedIndex ==4, selected: selectedIndex == 3, left: selectedIndex == 2, veryleft: selectedIndex == 1, hidden: selectedIndex == 0}">
+                <img src="/images/pacman_300x300.jpg" />
+                <br />
+                <h2>Pac-Man</h2>
+            </li>
+
+            <li
+                ng-class="{selected: selectedIndex == 4, left: selectedIndex == 3, veryleft: selectedIndex == 2, hidden: selectedIndex <= 1}">
+                <img src="/images/tic-tac-toe-300x300.png" />
+                <br />
+                <h2>Tic-Tac-Toe</h2>
+            </li>
+        </ul>
+
+        <div id="description">
+            <div ng-if="selectedIndex == 0" class="fade-in">
+                Try your hand at shooting skeet, but you better be fast and accurate, or some of the birds will get
+                away.
+                Just remeber to not shoot the
+                special star bird. That'll cost you.
+            </div>
+            <div ng-if="selectedIndex == 1" class="fade-in">
+                Cruise the galaxy clearing it of unsightly aseriods. And watch out for that pesky alien saucer, every
+                once
+                and I while it will show up and try
+                and get you.
+            </div>
+
+            <div ng-if="selectedIndex == 2" class="fade-in">
+                Mission control has just given you the go ahead for landing on the lunar surface. Are you up to the
+                challenge. You will need to pilot your landing
+                craft in every increasing amounts of gravity.
+            </div>
+            <div ng-if="selectedIndex == 3" class="fade-in">
+                Make that yellow wedge eat all the tick-tacs before the ghost get him.
+            </div>
+            <div ng-if="selectedIndex == 4" class="fade-in">
+                Play the classic game of tic-tac-toe against the computer. Select varying degrees of difficulty.
+            </div>
+        </div>
+    </div>
     <!--<button ng-click="testFlash()">Test Flash</button>
     <button ng-click="testGreenFlash()">Test Green Flash</button>
     <button ng-click="testRedFlash()">Test Red Flash</button>-->
 
-    <div style="display: flex">
-        <div>
-            <img src="/images/gamecontroller-512.png" style="height: 150px" />
-        </div>
-        <div style="padding-left: 20px">
 
-            <h1>Let's Play</h1>
-        </div>
-
-    </div>
-
-    <ul id="gameList" ng-class="{oneSelected:  selectedIndex == 0, twoSelected: selectedIndex == 1, threeSelected: selectedIndex == 2, fourSelected: selectedIndex == 3, fiveSelected: selectedIndex == 4}">
-        <li ng-class="{selected: selectedIndex == 0, right: selectedIndex == 1, veryright: selectedIndex == 2, hidden: selectedIndex >= 3}">
-            <img src="/images/skeet_300x300.jpg" />
-            <br />
-            <h2>Skeet Shooting</h2>
-        </li>
-        <li ng-class="{selected: selectedIndex == 1, right: selectedIndex == 2, left: selectedIndex == 0, veryright: selectedIndex == 3, hidden: selectedIndex ==4}">
-            <img src="/images/asteroids_300x300.jpg" />
-            <br />
-            <h2>Asteroids</h2>
-        </li>
-        <li ng-class="{selected: selectedIndex == 2, left: selectedIndex == 1, veryleft: selectedIndex == 0, right: selectedIndex == 3, veryright: selectedIndex == 4}">
-            <img src="/images/moon_landing_300x300.jpg" />
-            <br />
-            <h2>Moon Landing</h2>
-        </li>
-
-        <li ng-class="{right: selectedIndex ==4, selected: selectedIndex == 3, left: selectedIndex == 2, veryleft: selectedIndex == 1, hidden: selectedIndex == 0}">
-            <img src="/images/pacman_300x300.jpg" />
-            <br />
-            <h2>Pac-Man</h2>
-        </li>
-
-        <li ng-class="{selected: selectedIndex == 4, left: selectedIndex == 3, veryleft: selectedIndex == 2, hidden: selectedIndex <= 1}">
-            <img src="/images/tic-tac-toe-300x300.png" />
-            <br />
-            <h2>Tic-Tac-Toe</h2>
-        </li>
-    </ul>
-
-    <div id="description">
-        <div ng-if="selectedIndex == 0" class="fade-in">
-            Try your hand at shooting skeet, but you better be fast and accurate, or some of the birds will get away.  Just remeber to not shoot the
-            special star bird.  That'll cost you.
-        </div>
-        <div ng-if="selectedIndex == 1" class="fade-in">
-            Cruise the galaxy clearing it of unsightly aseriods.  And watch out for that pesky alien saucer, every once and I while it will show up and try
-            and get you.
-        </div>
-
-        <div ng-if="selectedIndex == 2" class="fade-in">
-            Mission control has just given you the go ahead for landing on the lunar surface.  Are you up to the challenge.  You will need to pilot your landing
-            craft in every increasing amounts of gravity.
-        </div>
-        <div ng-if="selectedIndex == 3" class="fade-in">
-            Make that yellow wedge eat all the tick-tacs before the ghost get him.
-        </div>
-        <div ng-if="selectedIndex == 4" class="fade-in">
-            Play the classic game of tic-tac-toe against the computer. Select varying degrees of difficulty.
-        </div>
-    </div>
     <audio controls="controls" autoplay style="display: none" id="bg-music">
         <source src="/media/music-park.mp3" type="audio/mpeg" />
     </audio>
@@ -222,10 +260,10 @@
     <button ng-click="next()">Next</button>-->
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="../javascripts/angular.min.js"></script>
     <script src="../javascripts/hammer.min.js"></script>
     <script src="/javascripts/game-menu.js"></script>
 </body>
+
 </html>

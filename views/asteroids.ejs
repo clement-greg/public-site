@@ -1,12 +1,185 @@
+@{
+    Layout = null;
+}
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width" />
+    <title>Asteroids</title>
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+    <!-- <link rel="icon" href="/images/favicon.png" type="image/x-icon" /> -->
+    <link href="/stylesheets/asteroids.css" rel="stylesheet" />
+    <style>
+        @keyframes pan-out {
+            from {
+                transform: scale(1) translateX(0px);
+            }
+
+            90% {
+                transform: scale(1.09) translateX(0px);
+            }
+
+            95% {
+                transform: scale(1.095) translateX(-2000px);
+            }
+
+            100% {
+                transform: scale(1.1) translateX(-2000px);
+            }
+        }
+
+
+        body {
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        #splash-screen {
+            background-image: url(/images/asteroids-splash.png);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 1;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: #000;
+            animation-name: pan-out;
+            animation-duration: 10s;
+            animation-timing-function: linear;
+            background-size: contain;
+            transform: scale(1.1) translateX(-2000px);
+        }
+
+        #time-counter {
+            font-size: 44px;
+            border-radius: 5px;
+            background-color: rgba(0,0,0,.3);
+            color: #fff;
+            padding: 20px;
+            display: inline-block;
+            position: absolute;
+        }
+    </style>
 </head>
-<body>
-    <h1>Asteriods</h1>
+<body style="overflow-y: hidden">
+    <div id="splash-screen">
+
+    </div>
+    <div id="time-counter"></div>
+    <div class="container">
+
+        <audio src="/media/8-bit-Dancer2.mp3" preload="auto" loop="loop" id="bgMusic"></audio>
+        <audio src="/sounds/asteroids/fire.mp3" preload="auto" id="fireSound"></audio>
+        <audio src="/sounds/asteroids/thrust.mp3" preload="auto" loop="loop" id="thrustSound"></audio>
+        <audio src="/sounds/asteroids/bangLarge.mp3" preload="auto" id="bangLargeSound"></audio>
+        <audio src="/sounds/asteroids/bangMedium.mp3" preload="auto" id="bangMediumSound"></audio>
+        <audio src="/sounds/asteroids/bangSmall.mp3" preload="auto" id="bangSmallSound"></audio>
+        <audio src="/sounds/asteroids/explode.mp3" preload="auto" id="explodeSound"></audio>
+        <audio src="/sounds/asteroids/saucerBig.mp3" loop="loop" preload="auto" id="saucerSound"></audio>
+
+        <img src="/images/asteroids/moon-rock.jpg" id="moonRock" class="display-none" />
+
+        <!-- The canvas where all drawing operations will be performed for the game -->
+        <canvas id="gameCanvas" class="display-none"></canvas>
+
+        <div id="splash" class="tab display-none">
+            <div id="earthAndMoon" style="height: 500px; width: 800px; position: absolute;margin-top: 280px; margin-left:-200px"></div>
+            <img src="/images/asteroids/asteroids_title.png" id="asteroidsTitle" />
+            <p style="font-family: space !important;color:#fff; font-size: 34px" id="asteroidsSubTitle">
+                Demonstrating the HTML canvas for CS-Two Thirteen
+                <br />
+                By Greg Clement
+            </p>
+            <div class="button-container">
+                <button id="launchGameButton" class="arcade-button">Start</button>
+            </div>
+            <div style="padding-top: 225px">
+
+            </div>
+            <a href="#" id="aboutButton" style="margin-top: 50px; margin-right: 20px">
+                <img class="pull-right" src="/images/asteroids/about.png" style="height: 75px" />
+            </a>
+        </div>
+
+        <div id="about" class="tab tab-no-show" style="color: #fff">
+
+            <h1 style="font-family: space !important; font-size: 64px; color: #fff">
+                About
+            </h1>
+
+            <div style="display: flex">
+                <div>
+                    <p>
+                        In CS165, the last project was creating asteroids using OpenGL and C++.
+                        For the last project in CS213, I decided to port the asteroid project over from CS165 to the web.  Instead of
+                        using c++ to make calls to OpenGL, this project is using JavaScript to make 2D drawing calls using the HTML 5
+                        canvas as a drawing surface.
+
+                    </p>
+                    <p>
+                        The game play relies primarily on pure JavaScript for execution, but there is a small dependency on
+                        JQuery and a JQuery plugin call FastKeys to help handle keyboard input.
+                    </p>
+
+                    <p>
+                        The splash screen Earth-Moon 3D animation was created using three.js as an abstraction layer over the top of WebGL to
+                        do the heavy 3D lifting.
+                    </p>
+
+                    <h1 style="font-family: space !important; font-size: 64px; color: #fff">
+                        How to Play
+                    </h1>
+                    <div style="display: flex">
+                        <div>
+                            <ul style="font-family: space; font-size: 22px; margin-top:0;margin-right: 30px">
+                                <li>Left - Pivot Left</li>
+                                <li>Right - Pivot Right</li>
+                                <li>Up - Accelerate</li>
+                                <li>Space - Fire</li>
+                                <li>H - Go into Hyper-space</li>
+                            </ul>
+                        </div>
+                        <div>
+
+                            <img src="/images/asteroids/arrowKeys.png" style="height: 100px; display: table; margin: 0 auto" />
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    <canvas id="demoCanvas" width="300" height="300"></canvas>
+                </div>
+            </div>
+            <a id="backButton" href="#">
+
+                <img src="/images/asteroids/back.png" style="height: 75px" />
+            </a>
+        </div>
+
+    </div>
+    <script>
+        document.getElementById('bgMusic').volume = .2;
+        document.getElementById('bgMusic').play();
+    </script>
+    <script src="/javascripts/jquery-2.1.3.min.js"></script>
+    <script src="/javascripts/jQuery.fastKey.min.js"></script>
+    <script src="/javascripts/three.js"></script>
+
+    <script src="/javascripts/asteroids/sounds.js"></script>
+    <script src="/javascripts/asteroids/game-args.js"></script>
+    <script src="/javascripts/asteroids/point.js"></script>
+    <script src="/javascripts/asteroids/velocity.js"></script>
+    <script src="/javascripts/asteroids/flying-object.js"></script>
+    <script src="/javascripts/asteroids/ship.js"></script>
+    <script src="/javascripts/asteroids/pilotable-ship.js"></script>
+    <script src="/javascripts/asteroids/asteroid.js"></script>
+    <script src="/javascripts/asteroids/large-asteroid.js"></script>
+    <script src="/javascripts/asteroids/medium-asteroid.js"></script>
+    <script src="/javascripts/asteroids/small-asteroid.js"></script>
+    <script src="/javascripts/asteroids/bullet.js"></script>
+    <script src="/javascripts/asteroids/alien-saucer.js"></script>
+    <script src="/javascripts/asteroids/game.js"></script>
+    <script src="/javascripts/asteroids/about.js"></script>
 </body>
 </html>

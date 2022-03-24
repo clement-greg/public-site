@@ -1,12 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" />
+    <link type="text/css" href="/stylesheets/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/tic-tac-toe.css?v=2" />
 </head>
 <body>
-    <h1>Tic Tac Toe</h1>
+
+    <div class="center">
+        <img src="/images/tic-tac-toe/tick-tack-toe-logo.png" />
+    </div>
+    <div id="gameContainer">
+        <table id="gameboard">
+            <tbody data-bind="foreach: rows">
+                <tr>
+                    <!-- ko foreach: columns -->
+                    <td data-bind="click: select, attr: {Class: tdClass}">
+                        <img data-bind="attr: { src: imageUrl }, visible: imageVisible" class="game-board-image" />
+                    </td>
+                    <!-- /ko -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="difficultyContainer" data-bind="visible: showDifficulty">
+        <div id="difficultyInnerContainer" data-bind="css: {d1: difficulty() == 1 && computerPlays(), d2: difficulty() == 2 && computerPlays(), d3: difficulty() == 3 && computerPlays(), d4: difficulty() == 4 && computerPlays(), d5: !computerPlays() }">
+            <div data-bind="css: {selectedDifficulty: difficulty() == 1 && computerPlays()}"><span>Easy</span></div>
+            <div data-bind="css: {selectedDifficulty: difficulty() == 2 && computerPlays()}"><span>Medium</span></div>
+            <div data-bind="css: {selectedDifficulty: difficulty() == 3 && computerPlays()}"><span>Tough</span></div>
+            <div data-bind="css: {selectedDifficulty: difficulty() == 4 && computerPlays()}"><span>Unbeatable</span></div>
+            <div data-bind="css: {selectedDifficulty: !computerPlays() }"><span>2 Player</span></div>
+        </div>
+    </div>
+
+    <div id="currentPlayer">
+        <div class="players-turn">
+            <center>
+                <img data-bind="attr: { src: playersTurnUrl }" />
+            </center>
+            <a href="#" data-bind="click: showSettings">Settings</a>
+        </div>
+
+        <div class="score-board">
+            <table>
+                <tr>
+                    <td>X Wins:&nbsp;</td>
+                    <td data-bind="text: xWinCount"></td>
+                </tr>
+                <tr>
+                    <td>O Wins:&nbsp;</td>
+                    <td data-bind="text: yWinCount"></td>
+                </tr>
+                <tr>
+                    <td>Ties: &nbsp;</td>
+                    <td data-bind="text: catsGamesCount"></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <div id="dialog-modal" title="Settings">
+        <input type="checkbox" data-bind="checked: computerPlays" id="computerPlays" />
+        <label for="computerPlays">Play Against the Computer</label>
+        <br />
+        <input type="checkbox" data-bind="checked: playSounds" id="playSounds" />
+        <label for="playSounds">Play Sounds</label>
+        <br />
+        <input type="checkbox" data-bind="checked: showThinking" id="showThinking" />
+        <label for="showThinking">Show Thinking</label>
+        <br />
+        <div style="margin-top: 30px" data-bind="text: difficultyText"></div>
+        <div id="slider-range-max"></div>
+        <a href="#" data-bind="click: loadStyle">Load Style</a>
+        <br />
+        <button data-bind="click: closePopup" style="margin-top: 10px">Close</button>
+    </div>
+
+
+    <div id="win-dialog" title="Winner!">
+        <img data-bind="attr: { src: playersTurnUrl }" style="height: 48px; vertical-align: top; float: left; margin-right: 10px" />
+        is the winner! Press the Okay button and play again.
+    </div>
+
+
+    <div id="tie-dialog" title="Cat's Game">
+        <img src="/images/tic-tac-toe/cats-game.jpg" style="vertical-align: top; height: 64px; float: left; margin-right: 10px" />
+        Tie Game.  Press the Okay button and play again.
+    </div>
+
+
+    <script src="/javascripts/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js"></script>
+    <script src="/javascripts/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="/javascripts/knockout-3.3.0.js"></script>D
+    <script type="text/javascript" src="/javascripts/knockout.mapping-latest.js"></script>
+    <script type="text/javascript" src="/javascripts/linq.min.js"></script>
+    <script type="text/javascript" src="/javascripts/tic-tac-toe.js?v=8"></script>
+    <script type="text/javascript" src="/javascripts/common.js?v=8"></script>
+
+    <img src="/images/tic-tac-toe/cats-game.jpg" style="display: none" />
+
+    <div data-bind="fadeToVisible: thinking" id="overlay_container">
+        <div id="overlay">
+        </div>
+
+        <div id="thinkingBorder">
+            <center>
+                <img src="/images/tic-tac-toe/thinking.png" style="height: 150px;" />
+            </center>
+            <br />
+            <span data-bind="text: thinkingMessage"></span>
+        </div>
+    </div>
+
+
+
 </body>
 </html>
