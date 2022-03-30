@@ -42,15 +42,15 @@ router.get('/pong', function (req, res, next) {
 });
 
 router.get('/rock-paper-scissors', function (req, res, next) {
-    res.render('rock-paper-scissors', { layout: false });
+    res.render('rock-paper-scissors', { layout: false, title: 'Rock Paper Scissors' });
 });
 
 router.get('/gamemenu', function(req, res,next){
-    res.redirect('/games/menu');
+    res.redirect('/games/menu', {title: 'Games Menu'});
 });
 
 router.get('/elevate-man', function(req, res, next) {
-    res.render('elevate-man', {layout: false});
+    res.render('elevate-man', {layout: false, title: 'Elevate Man'});
 })
 
 router.get('/GameMenu', function(req, res,next){

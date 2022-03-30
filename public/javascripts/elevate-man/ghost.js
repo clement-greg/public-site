@@ -164,22 +164,28 @@ ghost.prototype.draw = function () {
     var y = this.point.y;
     var row = rowIndex;
 
-    if(lastVelocity && this.velocity.dx !== lastVelocity.dx && this.velocity.dx !== 0) {
+//    if(lastVelocity && this.velocity.dx !== lastVelocity.dx && this.velocity.dx !== 0) {
 
         if(this.velocity.dx < 0) {
             row = 1;
         } else {
             row = 0;
         }
-    }
+    // }
     lastVelocity = this.velocity;
 
     if(this.eatable && !this.resetting) {
-        if(rowIndex === 0) {
-            row = 2;
-        } else {
+        if(this.velocity.dx < 0) {
             row = 3;
+        } else  {
+            row = 2;
         }
+
+        // if(rowIndex === 0) {
+        //     row = 2;
+        // } else {
+        //     row = 3;
+        // }
         if(this.eatableWaning && this.throbCount === 4) {
             row = 4;
             frameIndex = 1;
