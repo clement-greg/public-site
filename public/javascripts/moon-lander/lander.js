@@ -1,7 +1,10 @@
-﻿var lander = function (ctx) {
+﻿var elevateShip = new Image();
+elevateShip.src = '/images/asteroids/elevate-ship.png';
+
+var lander = function (ctx) {
     flyingObject.call(this, ctx);
     this.rotation = 180;
-    this.point = new point(gameArgs.A_SCREEN_WIDTH / 2, 20);
+    this.point = new point(gameArgs.A_SCREEN_WIDTH / 2, 40);
     this.velocity = new velocity(0, 0);
     this.fuel = 500;
 
@@ -83,8 +86,17 @@ lander.prototype.applyGravity = function (gravity) {
 
 lander.prototype.reset = function () {
     this.fuel = 500;
-    this.point = new point(gameArgs.A_SCREEN_WIDTH / 2, 20);
+    this.point = new point(gameArgs.A_SCREEN_WIDTH / 2, 40);
     this.velocity = new velocity(0, 0);
     this.alive = true;
     this.isLanded = false;
 };
+
+lander.prototype.draw = function() {
+    var ctx = gameArgs.getContext();
+    
+    const width = 110;
+ 
+    ctx.drawImage(elevateShip, 0, 0, width , 108, this.point.x - 20, this.point.y - 32, 40, 40);
+    ctx.restore();
+}

@@ -165,7 +165,7 @@
 
                     setTimeout(function () {
                         parent.postMessage('/cycle-wave', '*');
-                        document.location.href = '/Games/HighScore?game=Moon Lander&score=' + score;
+                        document.location.href = '/games/menu';
                     }, 3000);
                 }
             }
@@ -185,6 +185,7 @@
     }
 
     var score = 0;
+    var fuelReserve = document.getElementById('fuel-reserve');
 
     function draw() {
         ctx.clearRect(0, 0, gameArgs.A_SCREEN_WIDTH, gameArgs.A_SCREEN_HEIGHT);
@@ -194,7 +195,19 @@
         moonLander.draw();
 
         ctx.fillStyle = "#ffffff";
-        ctx.fillText("Fuel: " + moonLander.fuel, 20, 20);
+        // ctx.fillText("Fuel: " + moonLander.fuel, 20, 20);
+
+        const pct = (moonLander.fuel / 500) * 100;
+        if(pct > 50) {
+            fuelReserve.style.background = 'linear-gradient(360deg, rgba(3,121,3,1) 0%, rgba(0,73,31,1) 100%)';
+
+        } else if(pct > 20) {
+            fuelReserve.style.background = 'linear-gradient(360deg, rgba(227,177,49,1) 0%, rgba(205,143,16,1) 100%)';
+
+        } else {
+            fuelReserve.style.background = 'linear-gradient(360deg, rgba(247,61,61,1) 0%, rgba(162,5,5,1) 100%)';
+        }
+        fuelReserve.style.width = pct + '%';
 
         ctx.fillText("Wins: " + winCount + " Loses: " + lostCount + " Score: " + score, gameArgs.A_SCREEN_WIDTH - 250, 20);
         if (message)

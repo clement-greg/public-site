@@ -4,7 +4,7 @@
     this.rotation = 0;
     this.velocity = new velocity(0, 0);
     this.alive = true;
-    this.collisionRadius = 0;
+    this.collisionRadius = 20;
     this.destroyPoints = 0;
 };
 

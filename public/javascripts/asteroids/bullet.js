@@ -1,7 +1,7 @@
 ﻿var bullet = function (ctx) {
     flyingObject.call(this, ctx);
     this.outline = [
-        new point(0, 0), new point(0, 1), new point(1, 1), new point(1, 0), new point(0, 0),
+        new point(0, 0), new point(0, 3), new point(3, 2), new point(3, 0), new point(0, 0),
     ];
     this.BULLET_LIFE = 40;
     this.frameLife = 0;
@@ -11,6 +11,7 @@
     this.setIsRed = function (red) {
         isRed = red;
     }
+    this.fill = '#fff';
 };
 
 bullet.prototype = Object.create(flyingObject.prototype);

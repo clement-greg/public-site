@@ -6,7 +6,7 @@
     var invicibleInterval = 0;
     var repairInterval = 0;
     var resetting = false;
-    this.collisionRadius = 10;
+    this.collisionRadius = 20;
 
     this.reset = function () {
         resetting = true;

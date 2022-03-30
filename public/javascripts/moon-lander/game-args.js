@@ -160,6 +160,8 @@ gameArgs.fillPath = function (points, color, ctx, fill) {
         ctx.fillStyle = fill;
 
     ctx.strokeStyle = color;
+    ctx.strokeWidth = 1;
+    ctx.storkeStyle = '#ffffff';
 
     ctx.beginPath();
     ctx.moveTo(0, this.A_SCREEN_HEIGHT);
@@ -169,7 +171,8 @@ gameArgs.fillPath = function (points, color, ctx, fill) {
     ctx.lineTo(this.A_SCREEN_WIDTH, this.A_SCREEN_HEIGHT);
     ctx.lineTo(0, this.A_SCREEN_HEIGHT);
     ctx.fill();
-    //ctx.stroke();
+    ctx.closePath();
+    ctx.stroke();
 };
 
 gameArgs.fillPoints = function (points, color, ctx) {
@@ -191,6 +194,7 @@ gameArgs.fillPoints = function (points, color, ctx) {
     ctx.fill();
     ctx.stroke();
     ctx.strokeStyle = "#ffffff";
+    ctx.closePath();
 };
 
 gameArgs.getContext = function () {

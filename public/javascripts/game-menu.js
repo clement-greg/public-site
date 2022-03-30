@@ -97,7 +97,7 @@
             else if ($scope.selectedIndex == 2)
                 url = '/games/moon-landing?timeout=' + getParameterByName('timeout');
             else if ($scope.selectedIndex == 3)
-                url = '/games/pac-man?timeout=' + getParameterByName('timeout');
+                url = '/games/elevate-man?timeout=' + getParameterByName('timeout');
             else if ($scope.selectedIndex == 4)
                 url = '/games/tic-tac-toe?timeout=' + getParameterByName('timeout');
             playBeat();

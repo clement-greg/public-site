@@ -66,7 +66,7 @@
             saucer.gameStopped = true;
 
             setTimeout(function () {
-                document.location.href = '/Games/HighScore?game=Asteriods&score=' + thisGame.score;
+                document.location.href = '/games/menu';
                 parent.postMessage('/cycle-wave', '*');
             }, 3000);
 
@@ -217,11 +217,11 @@
         ctx.fillStyle = "#ffffff";
         ctx.fillText("Score: " + thisGame.score, gameArgs.A_SCREEN_WIDTH - 120, 15);
         for (var i = 0; i < lifeIndicators.length; i++) {
-            lifeIndicators[i].point = new point(10 + i * 20, 10);
+            lifeIndicators[i].point = new point(10 + i * 40, 20);
             lifeIndicators[i].draw();
         }
         for (var i = 0; i < livesSpent; i++) {
-            gameArgs.drawCrossCircle(ctx, new point(10 + i * 20, 10), 8);
+            gameArgs.drawCrossCircle(ctx, new point(10 + i * 40, 20), 15);
         }
 
         if (myShip.isResetting()) {

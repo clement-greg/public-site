@@ -49,6 +49,10 @@ router.get('/gamemenu', function(req, res,next){
     res.redirect('/games/menu');
 });
 
+router.get('/elevate-man', function(req, res, next) {
+    res.render('elevate-man', {layout: false});
+})
+
 router.get('/GameMenu', function(req, res,next){
     res.redirect('/games/menu');
 });

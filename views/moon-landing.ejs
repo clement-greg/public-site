@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Moon Landing</title>
     <style>
-
-        @keyframes pan-out  {
+        @keyframes pan-out {
             from {
                 transform: scale(1) translateX(0px);
             }
@@ -14,13 +14,15 @@
             90% {
                 transform: scale(1.09) translateX(0px);
             }
+
             95% {
                 transform: scale(1.095) translateX(-2000px);
             }
+
             100% {
                 transform: scale(1.1) translateX(-2000px);
             }
-            
+
         }
 
 
@@ -44,12 +46,13 @@
             background-size: contain;
             transform: scale(1.1) translateX(-2000px);
         }
+
         #gameCanvas {
             height: 800px;
             margin: 20px;
             width: 800px;
             background-color: black;
-            border: 2px solid #808080;      
+            border: 2px solid #808080;
             background-image: url(/images/asteroids/space4.jpg);
             display: table;
             margin: 0 auto;
@@ -59,17 +62,50 @@
         .no-display {
             display: none;
         }
+
         #time-counter {
             font-size: 44px;
             border-radius: 5px;
-            background-color: rgba(0,0,0,.3);
+            background-color: rgba(0, 0, 0, .3);
             color: #fff;
             padding: 20px;
             display: inline-block;
             position: absolute;
         }
+
+        #fuel-reserve-container {
+            width: 175px;
+            border: 1px solid #808080;
+            border-radius: 5px;
+            height: 20px;
+            padding: 3px;
+        }
+
+        #fuel-reserve {
+            background-color: aqua;
+            height: 100%;
+            width: 33%;
+            background: linear-gradient(360deg, rgba(3,121,3,1) 0%, rgba(0,73,31,1) 100%);
+            background: linear-gradient(360deg, rgba(227,177,49,1) 0%, rgba(205,143,16,1) 100%);
+            background: linear-gradient(360deg, rgba(247,61,61,1) 0%, rgba(162,5,5,1) 100%);
+            border-radius: 3px;
+        }
+
+        .hud {
+            position: absolute;
+            top: 0;
+            width: 100%
+        }
+        .hud>div {
+            width: 800px;
+            display: table;
+            margin: 0 auto;
+            padding-top: 37px;
+        }
+
     </style>
 </head>
+
 <body>
     <div id="splash-screen">
 
@@ -83,8 +119,16 @@
     <div id="time-counter"></div>
     <canvas id="gameCanvas"></canvas>
 
+    <div class="hud">
+        <div>
+            <div id="fuel-reserve-container">
+                <div id="fuel-reserve"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="/javascripts/jquery-2.1.3.min.js"></script>
-    
+
     <script src="/javascripts/moon-lander/game-args.js"></script>
     <script src="/javascripts/moon-lander/point.js"></script>
     <script src="/javascripts/moon-lander/velocity.js"></script>
@@ -94,6 +138,5 @@
     <script src="/javascripts/moon-lander/game.js"></script>
     <script src="/javascripts/moon-lander/sounds.js"></script>
 </body>
+
 </html>
-
-

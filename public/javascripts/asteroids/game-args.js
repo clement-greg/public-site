@@ -24,6 +24,19 @@ gameArgs.rotate = function (point, origin, rotation) {
     return point;
 };
 
+gameArgs.getContext = function () {
+    if (!gameArgs.context) {
+        var gameCanvas = document.getElementById("gameCanvas");
+        gameCanvas.width = this.A_SCREEN_WIDTH;
+        gameCanvas.height = this.A_SCREEN_HEIGHT;
+
+        var ctx = gameCanvas.getContext("2d");
+        gameArgs.context = ctx;
+    }
+
+    return gameArgs.context;
+};
+
 //Very simple collision detection based on a c++ algorithm presented in cs165
 gameArgs.checkForCollision = function (obj1, obj2) {
     // find the maximum distance traveled

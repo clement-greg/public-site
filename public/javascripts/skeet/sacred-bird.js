@@ -1,4 +1,6 @@
-﻿var sacredBird = function (initialPoint) {
+﻿var elevateBirdImg = new Image();
+elevateBirdImg.src = '/images/skeet/elevate-bird.png';
+var sacredBird = function (initialPoint) {
     bird.call(this, initialPoint);
     this.radius = 20;
     this.rotation = 0;
@@ -30,4 +32,12 @@ sacredBird.prototype.advance = function () {
 };
 sacredBird.prototype.playDestroyedSound = function () {
     soundFx.playBeep();
+};
+
+sacredBird.prototype.draw = function () {
+    //gameArgs.drawEllipse(this.point, 15);
+    var ctx = gameArgs.getContext();
+    
+    ctx.drawImage(elevateBirdImg, 0, 0, 489, 489, this.point.x - 20, this.point.y - 20, 40, 40);
+
 };
