@@ -2,7 +2,7 @@
     .controller("BaseCtrl", ["$scope", function ($scope) {
         $scope.message = 'worksss';
 
-        $scope.selectedIndex = 1;
+        $scope.selectedIndex = 2;
 
         $scope.next = function () {
             if ($scope.selectedIndex <= 3)
