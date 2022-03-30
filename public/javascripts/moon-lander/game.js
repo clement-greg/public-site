@@ -28,6 +28,8 @@
         if (!firstRound)
             theGround.generateGround();
         firstRound = false;
+        resetResult();
+        setGravity();
     }
 
     $(document).keydown(function (event) {
@@ -148,16 +150,58 @@
         }
     }
 
+    function setGravity() {
+        const gravityCircle = document.getElementById('innerCircleId');
+        const radius = 50;
+        const minGravity = .01;
+        const maxGravity = .1;
+
+        const percent = ((gravityAmount) / maxGravity) * 100;
+        const dashArray = 2 * Math.PI * radius;
+        const archCircumferenceBound = dashArray - (dashArray * (percent / 100));
+
+        gravityCircle.style.strokeDasharray = dashArray;
+        gravityCircle.style.strokeDashoffset = archCircumferenceBound;
+    
+    }
+
+    setGravity();
+
+    var gageNeedle;
+    function setSpeedGage() {
+        // -90deg to 90deg
+        // 0 - 5 dy speed
+        const maxSpeed = 3;
+        let speedY = moonLander.velocity.dy;
+        if(speedY > maxSpeed) {
+            speedY = maxSpeed;
+        } else if(speedY < 0) {
+            speedY = 0;
+        }
+
+        let pct = (((speedY / maxSpeed) * 100) * 1.8) - 90;
+        
+        if(!gageNeedle) {
+            gageNeedle = document.getElementById('gage-needle');
+        }
+
+        gageNeedle.style.transform = `rotate(${pct}deg)`;
+
+    }
+
     function advance() {
         if (moonLander.alive && !moonLander.isLanded && playingGame) {
             moonLander.applyGravity(gravityAmount);
             moonLander.advance();
+            //document.getElementById('velocity').innerText = moonLander.velocity.dy;
 
             if (!theGround.isAboveGround(moonLander.point)) {
                 playingGame = false;
                 message = "Sorry, you lose, Press the space-bar to play again.";
+                showGameResult(false);
                 moonLander.kill();
                 lostCount++;
+                updateScore();
                 soundFx.playBangLarge();
                 soundFx.stopRepeatWarning();
                 parent.postMessage('/quick-red-flash', '*');
@@ -174,20 +218,54 @@
                 playingGame = false;
                 message = "You Win, Press the space-bar to play again.";
                 moonLander.isLanded = true;
+                showGameResult(true);
                 gravityAmount += .005;
                 score += Math.round(1000 + gravityAmount * 10000 + moonLander.fuel);
                 winCount++;
+                updateScore();
                 soundFx.playWin();
                 soundFx.stopRepeatWarning();
                 parent.postMessage('/quick-green-flash', '*');
             }
         }
+        setSpeedGage();
+    }
+
+    function showGameResult(won) {
+        const result = document.getElementById('round-result');
+        result.style.display = 'initial';
+        if(won) {
+            result.classList.add('won');
+        } else {
+            result.classList.add('lost');
+        }
+
+    }
+
+    function resetResult() {
+
+        const result = document.getElementById('round-result');
+        result.style.display = 'none';
+        result.classList.remove('won');
+        result.classList.remove('lost');
     }
 
     var score = 0;
+    function updateScore() {
+        document.getElementById('wins').innerText = winCount;
+        document.getElementById('lost').innerText = lostCount;
+        document.getElementById('score').innerHTML = score.toLocaleString("en-US");
+
+    }
+
+    updateScore();
+
     var fuelReserve = document.getElementById('fuel-reserve');
 
     function draw() {
+        if(!fuelReserve) {
+            fuelReserve = document.getElementById('fuel-reserve');
+        }
         ctx.clearRect(0, 0, gameArgs.A_SCREEN_WIDTH, gameArgs.A_SCREEN_HEIGHT);
         theGround.draw();
 
@@ -209,9 +287,9 @@
         }
         fuelReserve.style.width = pct + '%';
 
-        ctx.fillText("Wins: " + winCount + " Loses: " + lostCount + " Score: " + score, gameArgs.A_SCREEN_WIDTH - 250, 20);
-        if (message)
-            ctx.fillText(message, gameArgs.A_SCREEN_WIDTH / 2 - (message.length / 2 * 6), gameArgs.A_SCREEN_HEIGHT / 2 - 70);
+        // ctx.fillText("Wins: " + winCount + " Loses: " + lostCount + " Score: " + score, gameArgs.A_SCREEN_WIDTH - 250, 20);
+        // if (message)
+        //     ctx.fillText(message, gameArgs.A_SCREEN_WIDTH / 2 - (message.length / 2 * 6), gameArgs.A_SCREEN_HEIGHT / 2 - 70);
     }
 
     function justLanded() {
