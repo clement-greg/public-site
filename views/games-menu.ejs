@@ -183,33 +183,33 @@
         </div>
         <ul id="gameList"
             ng-class="{oneSelected:  selectedIndex == 0, twoSelected: selectedIndex == 1, threeSelected: selectedIndex == 2, fourSelected: selectedIndex == 3, fiveSelected: selectedIndex == 4}">
-            <li
+            <li ng-click="doClick(0)" style="cursor: pointer;"
                 ng-class="{selected: selectedIndex == 0, right: selectedIndex == 1, veryright: selectedIndex == 2, hidden: selectedIndex >= 3}">
                 <img src="/images/skeet_300x300.jpg" />
                 <br />
                 <h2>Skeet Shooting</h2>
             </li>
-            <li
+            <li ng-click="doClick(1)" style="cursor: pointer;"
                 ng-class="{selected: selectedIndex == 1, right: selectedIndex == 2, left: selectedIndex == 0, veryright: selectedIndex == 3, hidden: selectedIndex ==4}">
                 <img src="/images/asteroids_300x300.jpg" />
                 <br />
                 <h2>Asteroids</h2>
             </li>
-            <li
+            <li ng-click="doClick(2)" style="cursor: pointer;"
                 ng-class="{selected: selectedIndex == 2, left: selectedIndex == 1, veryleft: selectedIndex == 0, right: selectedIndex == 3, veryright: selectedIndex == 4}">
                 <img src="/images/moon_landing_300x300.jpg" />
                 <br />
                 <h2>Moon Landing</h2>
-            </li>
+            </li>m
 
-            <li
+            <li ng-click="doClick(3)" style="cursor: pointer;"
                 ng-class="{right: selectedIndex ==4, selected: selectedIndex == 3, left: selectedIndex == 2, veryleft: selectedIndex == 1, hidden: selectedIndex == 0}">
                 <img src="/images/pacman_300x300.jpg" />
                 <br />
                 <h2>Elevate-Man</h2>
             </li>
 
-            <li
+            <li ng-click="doClick(4)" style="cursor: pointer;"
                 ng-class="{selected: selectedIndex == 4, left: selectedIndex == 3, veryleft: selectedIndex == 2, hidden: selectedIndex <= 1}">
                 <img src="/images/tic-tac-toe-300x300.png" />
                 <br />

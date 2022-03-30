@@ -11,6 +11,14 @@
             //    $scope.selectedIndex = 0;
         }
 
+        $scope.doClick = function(index) {
+            if(index === $scope.selectedIndex) {
+                doNav();
+            } else {
+                $scope.selectedIndex = index;
+            }
+        }
+
         $scope.prev = function () {
             if ($scope.selectedIndex > 0)
                 $scope.selectedIndex--;
