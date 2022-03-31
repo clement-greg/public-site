@@ -186,15 +186,15 @@
             if (gp.buttons[0].pressed) {
                 var url = '';
                 if ($scope.selectedIndex == 0)
-                    url = '/Games/Skeet?auto-start=true&timeout=' + getParameterByName('timeout');
+                    url = '/games/skeet?auto-start=true&timeout=' + getParameterByName('timeout');
                 else if ($scope.selectedIndex == 1)
-                    url = '/Games/Asteroids?auto-start=true&timeout=' + getParameterByName('timeout');
+                    url = '/games/asteroids?auto-start=true&timeout=' + getParameterByName('timeout');
                 else if ($scope.selectedIndex == 2)
-                    url = '/Games/MoonLanding?timeout=' + getParameterByName('timeout');
+                    url = '/games/moon-landing?timeout=' + getParameterByName('timeout');
                 else if ($scope.selectedIndex == 3)
-                    url = '/Games/PacMan?timeout=' + getParameterByName('timeout');
+                    url = '/games/elevate-man?timeout=' + getParameterByName('timeout');
                 else if ($scope.selectedIndex == 4)
-                    url = '/Games/TicTacToe?timeout=' + getParameterByName('timeout');
+                    url = '/games/tic-tac-toe?timeout=' + getParameterByName('timeout');
                 playBeat();
                 setTimeout(function () { document.location.href = url; }, 500);
 
