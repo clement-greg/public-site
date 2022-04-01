@@ -24,6 +24,7 @@ router.post('/receive', function (req, res, next) {
   try {
     fs.writeFile(filePath, body, function () {
       res.end();
+      console.log('file written');
       next();
     });
   } catch (e) {
