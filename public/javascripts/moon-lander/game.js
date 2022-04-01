@@ -13,6 +13,13 @@
     ctx.strokeStyle = "#ffffff";
     document.getElementById('bgMusic').volume = .2;
     document.getElementById('bgMusic').play();
+    var images = [];
+    for (let i = 1; i <= 6; i++) {
+        const img = new Image();
+        img.src = `/images/asteroids/space${i}.jpg`;
+        images.push(img);
+    }
+
 
     //Frame-rate of about 30/FPS
     setInterval(function () {
@@ -21,12 +28,19 @@
     }, 1000 / 30);
 
     var firstRound = true;
+    var bgIndex = 1;
     function resetGame() {
         playingGame = true;
         message = "";
         moonLander.reset();
-        if (!firstRound)
+        if (!firstRound){
             theGround.generateGround();
+            bgIndex++;
+            if(bgIndex >=7) {
+                bgIndex = 1;
+            }
+            document.getElementById('gameCanvas').style.backgroundImage = `url(/images/asteroids/space${bgIndex}.jpg)`;
+        }
         firstRound = false;
         resetResult();
         setGravity();
@@ -162,7 +176,7 @@
 
         gravityCircle.style.strokeDasharray = dashArray;
         gravityCircle.style.strokeDashoffset = archCircumferenceBound;
-    
+
     }
 
     setGravity();
@@ -173,15 +187,15 @@
         // 0 - 5 dy speed
         const maxSpeed = 3;
         let speedY = moonLander.velocity.dy;
-        if(speedY > maxSpeed) {
+        if (speedY > maxSpeed) {
             speedY = maxSpeed;
-        } else if(speedY < 0) {
+        } else if (speedY < 0) {
             speedY = 0;
         }
 
         let pct = (((speedY / maxSpeed) * 100) * 1.8) - 90;
-        
-        if(!gageNeedle) {
+
+        if (!gageNeedle) {
             gageNeedle = document.getElementById('gage-needle');
         }
 
@@ -234,7 +248,7 @@
     function showGameResult(won) {
         const result = document.getElementById('round-result');
         result.style.display = 'initial';
-        if(won) {
+        if (won) {
             result.classList.add('won');
         } else {
             result.classList.add('lost');
@@ -263,7 +277,7 @@
     var fuelReserve = document.getElementById('fuel-reserve');
 
     function draw() {
-        if(!fuelReserve) {
+        if (!fuelReserve) {
             fuelReserve = document.getElementById('fuel-reserve');
         }
         ctx.clearRect(0, 0, gameArgs.A_SCREEN_WIDTH, gameArgs.A_SCREEN_HEIGHT);
@@ -276,10 +290,10 @@
         // ctx.fillText("Fuel: " + moonLander.fuel, 20, 20);
 
         const pct = (moonLander.fuel / 500) * 100;
-        if(pct > 50) {
+        if (pct > 50) {
             fuelReserve.style.background = 'linear-gradient(360deg, rgba(3,121,3,1) 0%, rgba(0,73,31,1) 100%)';
 
-        } else if(pct > 20) {
+        } else if (pct > 20) {
             fuelReserve.style.background = 'linear-gradient(360deg, rgba(227,177,49,1) 0%, rgba(205,143,16,1) 100%)';
 
         } else {
