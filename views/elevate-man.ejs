@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Pac-Man</title>
+    <link href="/stylesheets/html-games.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <style>
         html {
@@ -119,6 +120,9 @@
     </style>
 </head>
 <body id="body">
+    <div id="game-bg">
+        <video autoplay="true" muted="true" src="/media/game-menu-bg.mp4"></video>
+    </div>
     <div id="splash-screen">
 
         <video src="/media/pac-man-intro.mp4" autoplay="true" muted="true"></video>
@@ -139,7 +143,7 @@
         <h1 id="score">0</h1>
 
 
-        <canvas id="livesCanvas"></canvas>
+        <canvas id="livesCanvas" style="background: none;"></canvas>
     </div>
     <canvas id="gameCanvas"></canvas>
     <script src="/javascripts/jquery-2.1.3.min.js"></script>

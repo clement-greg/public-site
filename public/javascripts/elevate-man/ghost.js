@@ -1,6 +1,7 @@
 ﻿var ghost = function (ctx, point, color, board, speed) {
     moveablePlayer.call(this, ctx);
     this.point = point;
+    this.maxSpeed = speed;
     this.outline = [
         { x: 0, y: 0 },
         { x: 36, y: 0 },
@@ -135,9 +136,15 @@ ghost.prototype.advance = function () {
 
     if (possibleDirections[directionNumberToGo]) {
         possibleDirections[directionNumberToGo].call(this);
+        let newSpeed = Math.random() * this.maxSpeed;
+        if(newSpeed < 2) {
+            newSpeed = 2;
+        }
+        // console.log({maxSpeed: this.maxSpeed, speed: this.speed, newSpeed});
+        this.speed = newSpeed;
         this.lastTurn = new Date();
     }
-
+ 
 
     moveablePlayer.prototype.advance.call(this);
 }

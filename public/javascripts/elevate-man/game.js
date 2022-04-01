@@ -680,6 +680,9 @@
             //Level cleared
             resetBoard();
             ghostSpeed += 1;
+            if(ghostSpeed > 8) {
+                ghostSpeed = 8;
+            }
             parent.postMessage('/cycle-wave', '*');
         }
     }

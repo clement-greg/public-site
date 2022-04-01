@@ -1,6 +1,4 @@
-@{
-    Layout = null;
-}
+
 <!DOCTYPE html>
 
 <html>
@@ -10,6 +8,7 @@
     <link href="/stylesheets/site.css" rel="stylesheet" />
     <!-- <link rel="icon" href="/images/favicon.png" type="image/x-icon" /> -->
     <link href="/stylesheets/asteroids.css" rel="stylesheet" />
+    <link href="/stylesheets/html-games.css" rel="stylesheet">
     <style>
         @keyframes pan-out {
             from {
@@ -34,6 +33,7 @@
             background-color: #000;
             overflow: hidden;
             margin: 0;
+
         }
 
         #splash-screen {
@@ -63,10 +63,16 @@
             padding: 20px;
             display: inline-block;
             position: absolute;
+            display: none;
         }
+
+    
     </style>
 </head>
 <body style="overflow-y: hidden">
+    <div id="game-bg">
+        <video autoplay="true" muted="true" src="/media/game-menu-bg.mp4"></video>
+    </div>
     <div id="splash-screen">
 
     </div>
